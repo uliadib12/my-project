@@ -3,6 +3,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { useState } from "react";
 
 import { Home } from "./pages/Home";
 import { Users } from "./pages/Users";
@@ -11,9 +12,10 @@ import { NotFound } from "./pages/NotFound";
 import { Sidebar } from "./comp/SideBar";
 
 function App() {
+  const [SideBar, setSideBar] = useState(true)
   return (
     <Router>
-      <Sidebar/> {/* sidebar */}
+      {SideBar && <Sidebar/>} {/* sidebar */}
       <Switch>
         <Route path="/about" component={About}>
         </Route>
@@ -21,7 +23,7 @@ function App() {
         </Route>
         <Route exact path="/" component={Home}>
         </Route>
-        <Route path="*" component={NotFound}>
+        <Route path="*" component={()=><NotFound setbar={setSideBar}/>}>
         </Route>
       </Switch>
     </Router>
