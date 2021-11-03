@@ -4,14 +4,16 @@ import {
   Route,
 } from "react-router-dom";
 
-import { Home } from "./Home";
-import { Users } from "./Users";
-import { About } from "./About";
-import { NotFound } from "./NotFound";
+import { Home } from "./pages/Home";
+import { Users } from "./pages/Users";
+import { About } from "./pages/About";
+import { NotFound } from "./pages/NotFound";
+import { Sidebar } from "./comp/SideBar";
 
 function App() {
   return (
     <Router>
+      <Sidebar/> {/* sidebar */}
       <Switch>
         <Route path="/about" component={About}>
         </Route>
