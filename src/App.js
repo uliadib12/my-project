@@ -13,15 +13,16 @@ import { Sidebar } from "./comp/SideBar";
 
 function App() {
   const [SideBar, setSideBar] = useState(true)
+
   return (
     <Router>
-      {SideBar && <Sidebar/>} {/* sidebar */}
+      {SideBar && <Sidebar/>}
       <Switch>
-        <Route path="/about" component={About}>
+        <Route path="/about" component={()=><About/>} >
         </Route>
-        <Route path="/users" component={Users}>
+        <Route path="/users" component={()=><Users/>}>
         </Route>
-        <Route exact path="/" component={Home}>
+        <Route exact path="/" component={()=><Home/>}>
         </Route>
         <Route path="*" component={()=><NotFound setbar={setSideBar}/>}>
         </Route>

@@ -2,6 +2,7 @@ import React from 'react';
 import '../body.css';
 
 export function Home(props) {
+
     return (
     <>   
         <div className="body">
