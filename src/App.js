@@ -4,19 +4,18 @@ import {
   Route,
 } from "react-router-dom";
 import { useState } from "react";
-
+import { connect } from 'react-redux';
 import { Home } from "./pages/Home";
 import { Users } from "./pages/Users";
 import { About } from "./pages/About";
 import { NotFound } from "./pages/NotFound";
-import { Sidebar } from "./comp/SideBar";
+import Sidebar from "./comp/SideBar";
 
-function App() {
-  const [SideBar, setSideBar] = useState(true)
 
+function App(props) {
   return (
     <Router>
-      {SideBar && <Sidebar/>}
+      {props.displaybar && <Sidebar/>}
       <Switch>
         <Route path="/about" component={()=><About/>} >
         </Route>
@@ -24,11 +23,13 @@ function App() {
         </Route>
         <Route exact path="/" component={()=><Home/>}>
         </Route>
-        <Route path="*" component={()=><NotFound setbar={setSideBar}/>}>
+        <Route path="*" component={()=><NotFound/>}>
         </Route>
       </Switch>
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({displaybar: state.sidebarDisplay})
+
+export default connect(mapStateToProps)(App);

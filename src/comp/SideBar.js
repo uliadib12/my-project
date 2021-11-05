@@ -1,10 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
-export function Sidebar(props) {
+function Sidebar(props) {
+    const route = ["/","/users","/about"]
     const state = {home:false,user:false,aboutus:false}
     const [border, setborder] = useState(state)
+    const location = useLocation()
+    
+
+        if(!(route.includes(location.pathname))){
+            props.setDisplayfalse()
+        }
+        else if(route.includes(location.pathname)){
+            props.setDisplaytrue()
+        }
 
 
     const onclickHandler = (value)=>{
@@ -24,6 +36,18 @@ export function Sidebar(props) {
 
 function Menubar(props){
     return(
-        <div className={`flex items-center border-r-4 w-20 justify-center cursor-pointer mb-10 hover:border-blue-500 ${props.className ? "border-blue-500" : "border-gray-300"}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
+        <div className={`flex items-center border-r-4 w-20 justify-center cursor-pointer mb-12 hover:border-blue-500 ${props.className ? "border-blue-500" : "border-gray-300"}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
     )
 }
+
+const mapStateToProps = state => ({display: state.sidebarDisplay})
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      setDisplaytrue: () => dispatch({type: "SET_SIDEBAR_TRUE"}),
+      setDisplayfalse: () => dispatch({type: "SET_SIDEBAR_FALSE"})
+    }
+  }
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Sidebar)
