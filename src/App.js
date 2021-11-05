@@ -2,8 +2,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect
 } from "react-router-dom";
-import { useState } from "react";
 import { connect } from 'react-redux';
 import { Home } from "./pages/Home";
 import { Users } from "./pages/Users";
@@ -15,13 +15,16 @@ import Sidebar from "./comp/SideBar";
 function App(props) {
   return (
     <Router>
-      {props.displaybar && <Sidebar/>}
+      {props.displaybar && <Sidebar/>} {/*Display Sidebar eather is true of false*/}
       <Switch>
-        <Route path="/about" component={()=><About/>} >
+        <Route exact path="/">
+          <Redirect to="/home"/>
+        </Route>
+        <Route path="/home" component={()=><Home/>}>
         </Route>
         <Route path="/users" component={()=><Users/>}>
         </Route>
-        <Route exact path="/" component={()=><Home/>}>
+        <Route path="/about" component={()=><About/>} >
         </Route>
         <Route path="*" component={()=><NotFound/>}>
         </Route>

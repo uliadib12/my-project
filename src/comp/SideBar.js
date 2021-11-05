@@ -1,10 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+//icon
+import { AiFillDashboard } from 'react-icons/ai'
+import { FaUserAlt } from 'react-icons/fa'
+import { MdPersonSearch } from 'react-icons/md'
 
 function Sidebar(props) {
-    const route = ["/","/users","/about"] // set semua route
+    const route = ["/","/home","/users","/about"] // set semua route
     const state = {home:false,user:false,aboutus:false} //state all false
     const [border, setborder] = useState(state) // state current sidebare
     const location = useLocation()
@@ -18,17 +22,22 @@ function Sidebar(props) {
     }
     
     //Check kalo user masukin path manual
-    if(location.pathname=="/"){
+    if(location.pathname==="/"){
         if(border.home ? false : true)
-            setborder({state,["home"]:true})
+            setborder({state,home:true})
     }
-    if(location.pathname=="/users"){
+
+    if(location.pathname==="/home"){
+        if(border.home ? false : true)
+            setborder({state,home:true})
+    }
+    if(location.pathname==="/users"){
         if(border.user ? false : true)
-            setborder({state,["user"]:true})
+            setborder({state,user:true})
     }
-    if(location.pathname=="/about"){
+    if(location.pathname==="/about"){
         if(border.aboutus ? false : true)
-            setborder({state,["aboutus"]:true})
+            setborder({state,aboutus:true})
     }
 
     //handler buat ui route sidebar
@@ -39,9 +48,9 @@ function Sidebar(props) {
     return (
         <>
             <div className="flex flex-col border-2 left-0 h-full fixed justify-center">
-                <Menubar to={"/"} text={"Home"} className={border.home} onClick={()=>{onclickHandler("home")}}/>
-                <Menubar to={"/users"} text={"User"} className={border.user} onClick={()=>{onclickHandler("user")}}/>
-                <Menubar to={"/about"} text={"About Us"} className={border.aboutus} onClick={()=>{onclickHandler("aboutus")}}/>
+                <Menubar to={"/"} text={<AiFillDashboard size={25}/>} className={border.home} onClick={()=>{onclickHandler("home")}}/>
+                <Menubar to={"/users"} text={<FaUserAlt size={25}/>} className={border.user} onClick={()=>{onclickHandler("user")}}/>
+                <Menubar to={"/about"} text={<MdPersonSearch size={25} />} className={border.aboutus} onClick={()=>{onclickHandler("aboutus")}}/>
             </div>
         </>
     )
