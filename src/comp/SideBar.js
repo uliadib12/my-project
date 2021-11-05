@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { useEffect } from 'react';
 
 function Sidebar(props) {
     const route = ["/","/users","/about"] // set semua route
@@ -50,7 +49,7 @@ function Sidebar(props) {
 
 function Menubar(props){
     return(
-        <div className={`flex items-center border-r-4 w-20 justify-center cursor-pointer mb-12 hover:border-blue-500 ${props.className ? "border-blue-500" : "border-gray-300"}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
+        <div className={`flex items-center border-r-4 w-20 justify-center cursor-pointer mb-12 hover:text-blue-400 hover:border-blue-500 ${props.className ? "border-blue-500" : "border-gray-300"}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
     )
 }
 
