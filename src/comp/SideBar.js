@@ -5,20 +5,34 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 
 function Sidebar(props) {
-    const route = ["/","/users","/about"]
-    const state = {home:false,user:false,aboutus:false}
-    const [border, setborder] = useState(state)
+    const route = ["/","/users","/about"] // set semua route
+    const state = {home:false,user:false,aboutus:false} //state all false
+    const [border, setborder] = useState(state) // state current sidebare
     const location = useLocation()
+
+    //check kalo user masukin path sembarang
+    if(!(route.includes(location.pathname))){
+        props.setDisplayfalse()
+    }
+    if(route.includes(location.pathname)){
+        props.setDisplaytrue()
+    }
     
+    //Check kalo user masukin path manual
+    if(location.pathname=="/"){
+        if(border.home ? false : true)
+            setborder({state,["home"]:true})
+    }
+    if(location.pathname=="/users"){
+        if(border.user ? false : true)
+            setborder({state,["user"]:true})
+    }
+    if(location.pathname=="/about"){
+        if(border.aboutus ? false : true)
+            setborder({state,["aboutus"]:true})
+    }
 
-        if(!(route.includes(location.pathname))){
-            props.setDisplayfalse()
-        }
-        else if(route.includes(location.pathname)){
-            props.setDisplaytrue()
-        }
-
-
+    //handler buat ui route sidebar
     const onclickHandler = (value)=>{
         setborder({state,[value]:true})
     }
