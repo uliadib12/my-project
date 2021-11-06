@@ -9,6 +9,9 @@ import axios from 'axios';
 
 export function Home(props) {
     const [monthState, setmonthState] = useState(null)
+    const [errorAPI, seterrorAPI] = useState(false)
+    const [image, setimage] = useState([])
+    const [loading, setloading] = useState(false)
     let {path} = useRouteMatch();
     const location = useLocation().pathname;
     const history = useHistory();
@@ -18,9 +21,17 @@ export function Home(props) {
     }
 
     useEffect(()=>{
+        setloading(true)
         axios.get('https://picsum.photos/v2/list?page=1&limit=20')
         .then(res=>{
-            console.log(res)
+            const img = []
+            const data = res.data
+            data.map(dat=>img.push(dat.download_url))
+            setimage(img)
+            setloading(false)
+        })
+        .catch(err=>{
+            seterrorAPI(true)
         })
     }
     ,[])
@@ -63,12 +74,14 @@ export function Home(props) {
                             <div style={monthState === 9 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 9 ? setmonthState(prev => prev = null) : setmonthState(9)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>9 Months</div>
                         </div>
                         <div className="p-7 pt-2">
-                            <div className="container grid grid-cols-3 gap-5 mx-auto">
+                        {loading && <div>Loading</div>}
+                        <div className="container grid grid-cols-3 gap-5 mx-auto">
+                            {!(loading) && image.map((url)=>
                                 <div className="w-full rounded">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                                        alt="image"/>
+                                    <img src={url}/>
                                 </div>
-                            </div>
+                            )}
+                        </div>
                         </div>
                         </Route>
                         <Route exact path={`${path}/*`}>
