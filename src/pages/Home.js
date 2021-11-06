@@ -2,14 +2,15 @@ import React from 'react';
 import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
+import { TopbarList } from '../comp/Topbar-list';
 
 export function Home(props) {
     return (
     <>  
         <Sidebar/>
         <Topbar>
-            <div className="flex items-center hover:border-blue-500 cursor-pointer mr-8 border-b-2 h-full">Overview</div>
-            <div className="flex items-center hover:border-blue-500 cursor-pointer mr-8 border-b-2 h-full">Gallery</div>
+            <TopbarList text="Overview" active={true}/>
+            <TopbarList text="Gallery" active={false}/>
         </Topbar>
         <div className="bg-gray-100 h-screen">
             <div className="body">

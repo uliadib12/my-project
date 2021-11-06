@@ -42,7 +42,7 @@ function Sidebar(props) {
 
 function Menubar(props){
     return(
-        <div className={`flex items-center border-r-2 w-20 justify-center cursor-pointer mb-12 hover:text-blue-400 hover:border-blue-500 ${props.select ? "border-blue-500" : "border-gray-300"} ${props.className}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
+        <div className={`flex items-center border-r-2 w-16 justify-center cursor-pointer mb-12 hover:text-blue-400 hover:border-blue-500 ${props.select ? "border-blue-500" : "border-gray-300"} ${props.className}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
     )
 }
 
