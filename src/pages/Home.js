@@ -4,8 +4,10 @@ import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import { TopbarList } from '../comp/Topbar-list';
+import { useState } from 'react';
 
 export function Home(props) {
+    const [monthState, setmonthState] = useState(null)
     let {path} = useRouteMatch();
     const location = useLocation().pathname;
     const history = useHistory();
@@ -18,10 +20,11 @@ export function Home(props) {
     <>  
         <Sidebar/>
         <Topbar>
+            {/*display route Topbar home*/}
             <Switch>
                 <Route exact path={`${path}/*`}>
-                    <TopbarList onClick={()=>TopBarHandler(`${path}/overview`)} text="Overview" active={location == `${path}/overview` ? true : false }/>
-                    <TopbarList onClick={()=>TopBarHandler(`${path}/gallery`)} text="Gallery" active={location == `${path}/gallery` ? true : false }/>
+                    <TopbarList onClick={()=>TopBarHandler(`${path}/overview`)} text="Overview" active={location === `${path}/overview` ? true : false }/>
+                    <TopbarList onClick={()=>TopBarHandler(`${path}/gallery`)} text="Gallery" active={location === `${path}/gallery` ? true : false }/>
                 </Route>
             </Switch>
         </Topbar>
@@ -37,6 +40,7 @@ export function Home(props) {
                 </h2>
                 <div className="bg-white border-2 mt-4 ml-7 p-3">
                     <div className="flex justify-center items-center">
+                        {/*display route mainbar home*/}
                         <Switch>
                             <Route exact path={path}>
                                 <Redirect from={`${path}`} to={`${path}/overview`} />
@@ -45,9 +49,9 @@ export function Home(props) {
                                 <div>Overview</div>
                             </Route>
                             <Route exact path={`${path}/gallery`}>
-                                <div className="mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white">3 Months</div>
-                                <div className="mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white">6 Months</div>
-                                <div className="mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white">9 Months</div>
+                                <div onClick={()=>setmonthState(3)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white ${monthState === 3 ? "bg-gray-300" : ""}`}>3 Months</div>
+                                <div onClick={()=>setmonthState(6)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white ${monthState === 6 ? "bg-gray-300" : ""}`}>6 Months</div>
+                                <div onClick={()=>setmonthState(9)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white ${monthState === 9 ? "bg-gray-300" : ""}`}>9 Months</div>
                             </Route>
                             <Route exact path={`${path}/*`}>
                                 <Redirect to={"/NotFound404"}/>
