@@ -49,9 +49,9 @@ export function Home(props) {
                                 <div>Overview</div>
                             </Route>
                             <Route exact path={`${path}/gallery`}>
-                                <div onClick={()=>setmonthState(3)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white ${monthState === 3 ? "bg-gray-300" : ""}`}>3 Months</div>
-                                <div onClick={()=>setmonthState(6)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white ${monthState === 6 ? "bg-gray-300" : ""}`}>6 Months</div>
-                                <div onClick={()=>setmonthState(9)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white ${monthState === 9 ? "bg-gray-300" : ""}`}>9 Months</div>
+                                <div style={monthState === 3 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>setmonthState(3)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white`}>3 Months</div>
+                                <div style={monthState === 6 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>setmonthState(6)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white`}>6 Months</div>
+                                <div style={monthState === 9 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>setmonthState(9)} className={`mr-5 text-sm text-gray-600 font-medium p-1 rounded-md hover:bg-blue-400 cursor-pointer hover:text-white`}>9 Months</div>
                             </Route>
                             <Route exact path={`${path}/*`}>
                                 <Redirect to={"/NotFound404"}/>
