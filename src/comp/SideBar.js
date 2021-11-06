@@ -47,7 +47,7 @@ function Sidebar(props) {
 
     return (
         <>
-            <div className="flex flex-col border-2 left-0 h-full fixed justify-center">
+            <div className="flex flex-col border-2 left-0 h-full fixed justify-center bg-white">
                 <Menubar to={"/"} text={<AiFillDashboard size={25}/>} className={border.home} onClick={()=>{onclickHandler("home")}}/>
                 <Menubar to={"/users"} text={<FaUserAlt size={25}/>} className={border.user} onClick={()=>{onclickHandler("user")}}/>
                 <Menubar to={"/about"} text={<MdPersonSearch size={25} />} className={border.aboutus} onClick={()=>{onclickHandler("aboutus")}}/>
@@ -58,7 +58,7 @@ function Sidebar(props) {
 
 function Menubar(props){
     return(
-        <div className={`flex items-center border-r-4 w-20 justify-center cursor-pointer mb-12 hover:text-blue-400 hover:border-blue-500 ${props.className ? "border-blue-500" : "border-gray-300"}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
+        <div className={`flex items-center border-r-2 w-20 justify-center cursor-pointer mb-12 hover:text-blue-400 hover:border-blue-500 ${props.className ? "border-blue-500" : "border-gray-300"}`} onClick={props.onClick}><Link to={props.to}>{props.text}</Link></div>
     )
 }
 
