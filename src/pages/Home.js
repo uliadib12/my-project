@@ -1,20 +1,29 @@
-import React ,{useState} from 'react';
-import { Redirect, useRouteMatch, Switch, Route } from 'react-router';
+import React from 'react';
+import { Redirect, useRouteMatch, Switch, Route, useHistory, useLocation } from 'react-router';
 import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import { TopbarList } from '../comp/Topbar-list';
-import { NotFound } from './NotFound';
 
 export function Home(props) {
-    const [topbarselect, settopbarselect] = useState(1)
-    let { path, url } = useRouteMatch();
+    let {path} = useRouteMatch();
+    const location = useLocation().pathname;
+    const history = useHistory();
+
+    const TopBarHandler = (val) =>{
+        history.push(val)
+    }
+
     return (
     <>  
         <Sidebar/>
         <Topbar>
-            <TopbarList text="Overview" active={false}/>
-            <TopbarList text="Gallery" active={false}/>
+            <Switch>
+                <Route exact path={`${path}/*`}>
+                    <TopbarList onClick={()=>TopBarHandler(`${path}/overview`)} text="Overview" active={location == `${path}/overview` ? true : false }/>
+                    <TopbarList onClick={()=>TopBarHandler(`${path}/gallery`)} text="Gallery" active={location == `${path}/gallery` ? true : false }/>
+                </Route>
+            </Switch>
         </Topbar>
         <div className="bg-gray-100 h-screen">
             <div className="body">
