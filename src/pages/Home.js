@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, useRouteMatch, Switch, Route, useHistory, useLocation } from 'react-router';
 import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import { TopbarList } from '../comp/Topbar-list';
 import { useState } from 'react';
-import IMG from '../assets/image/avatar-placeholder.png'
+import axios from 'axios';
 
 export function Home(props) {
     const [monthState, setmonthState] = useState(null)
@@ -16,6 +16,14 @@ export function Home(props) {
     const TopBarHandler = (val) =>{
         history.push(val)
     }
+
+    useEffect(()=>{
+        axios.get('https://picsum.photos/v2/list?page=1&limit=20')
+        .then(res=>{
+            console.log(res)
+        })
+    }
+    ,[])
 
     return (
     <>  
@@ -56,26 +64,6 @@ export function Home(props) {
                         </div>
                         <div className="p-7 pt-2">
                             <div className="container grid grid-cols-3 gap-5 mx-auto">
-                                <div className="w-full rounded">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                                        alt="image"/>
-                                </div>
-                                <div className="w-full rounded">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                                        alt="image"/>
-                                </div>
-                                <div className="w-full rounded">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                                        alt="image"/>
-                                </div>
-                                <div className="w-full rounded">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                                        alt="image"/>
-                                </div>
-                                <div className="w-full rounded">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                                        alt="image"/>
-                                </div>
                                 <div className="w-full rounded">
                                     <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
                                         alt="image"/>
