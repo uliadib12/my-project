@@ -34,7 +34,7 @@ function Sidebar(props) {
             <div className="flex flex-col border-2 left-0 h-full fixed justify-center bg-white">
                 <Menubar to={"/home"} text={<AiFillDashboard size={25} className="w-20"/>} select={border.home} onClick={()=>{onclickHandler("home")}}/>
                 <Menubar to={"/users"} text={<FaUserAlt size={25} className="w-20"/>} select={border.users} onClick={()=>{onclickHandler("users")}}/>
-                <Menubar to={"/about"} text={<MdPersonSearch size={25} className="w-20"/>} select={border.about} onClick={()=>{onclickHandler("about")}}/>
+                <Menubar to={"/about"} text={<MdPersonSearch size={30} className="w-20"/>} select={border.about} onClick={()=>{onclickHandler("about")}}/>
             </div>
         </>
     )

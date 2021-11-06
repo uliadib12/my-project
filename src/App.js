@@ -16,13 +16,13 @@ function App(props) {
         <Route exact path="/">
           <Redirect to="/home"/>
         </Route>
-        <Route exact path="/home" component={()=><Home/>}>
+        <Route path="/home" component={()=><Home/>}>
         </Route>
-        <Route exact path="/users" component={()=><Users/>}>
+        <Route path="/users" component={()=><Users/>}>
         </Route>
-        <Route exact path="/about" component={()=><About/>} >
+        <Route path="/about" component={()=><About/>} >
         </Route>
-        <Route exact path="*" component={()=><NotFound/>}>
+        <Route path="*" component={()=><NotFound/>}>
         </Route>
       </Switch>
     </Router>
