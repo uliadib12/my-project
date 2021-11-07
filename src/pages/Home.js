@@ -1,17 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect, useRouteMatch, Switch, Route, useHistory, useLocation } from 'react-router';
 import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import { TopbarList } from '../comp/Topbar-list';
 import { useState } from 'react';
-import axios from 'axios';
+
+function GetImage(props) {
+    let img = []
+    for (let i = 1; i <= props.value; i++) {
+        img.push(<img src={`https://picsum.photos/id/${i}/400/300`}/>)
+    }
+    return (
+        <>
+        {img.slice(0,props.value)}
+        </>
+    )
+}
+
 
 export function Home(props) {
     const [monthState, setmonthState] = useState(null)
-    const [errorAPI, seterrorAPI] = useState(false)
-    const [image, setimage] = useState([])
-    const [loading, setloading] = useState(false)
     let {path} = useRouteMatch();
     const location = useLocation().pathname;
     const history = useHistory();
@@ -19,22 +28,6 @@ export function Home(props) {
     const TopBarHandler = (val) =>{
         history.push(val)
     }
-
-    useEffect(()=>{
-        setloading(true)
-        axios.get('https://picsum.photos/v2/list?page=1&limit=20')
-        .then(res=>{
-            const img = []
-            const data = res.data
-            data.map(dat=>img.push(dat.download_url))
-            setimage(img)
-            setloading(false)
-        })
-        .catch(err=>{
-            seterrorAPI(true)
-        })
-    }
-    ,[])
 
     return (
     <>  
@@ -74,13 +67,8 @@ export function Home(props) {
                             <div style={monthState === 9 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 9 ? setmonthState(prev => prev = null) : setmonthState(9)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>9 Months</div>
                         </div>
                         <div className="p-7 pt-2">
-                        {loading && <div>Loading</div>}
-                        <div className="container grid grid-cols-3 gap-5 mx-auto">
-                            {!(loading) && image.map((url)=>
-                                <div className="w-full rounded">
-                                    <img src={url}/>
-                                </div>
-                            )}
+                        <div className="container grid grid-cols-3 gap-5 mx-auto mt-2">
+                            <GetImage value={51}/>
                         </div>
                         </div>
                         </Route>
