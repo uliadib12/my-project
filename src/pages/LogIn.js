@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react'
 import * as EmailValidator from 'email-validator'
 import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
@@ -8,6 +8,7 @@ export function Login(props) {
     const auth = getAuth(app);
     const [email, setemail] = useState("")
     const [pass, setpass] = useState("")
+    const formRef = useRef()
 
     const emailvalidator = EmailValidator.validate
 
@@ -21,6 +22,8 @@ export function Login(props) {
             .then((userCredential) => {
                 // Signed in 
                 console.log("BERHASIL")
+                formRef.current[0].value = ""
+                formRef.current[1].value = ""
                 const user = userCredential.user;
                 console.log(user)
                 // ...
@@ -42,7 +45,7 @@ export function Login(props) {
                 <div className="box-border bg-blue-50 w-96 rounded-3xl py-11 px-12 relative overflow-hidden shadow-2xl">
                     <div className="text-3xl font-bold text-blue-500 mb-5 flex justify-center">{props.Nama}</div>
                     <div className="flex items-center justify-center text-3xl mb-6 font-bold text-blue-400">Login</div>
-                    <form>
+                    <form ref={formRef}>
                         <label className ="font-medium text-lg">
                         Email:
                         <input onChange={event => setemail(event.target.value)} type="email" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7"/>
