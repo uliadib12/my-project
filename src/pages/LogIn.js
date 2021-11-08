@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import * as EmailValidator from 'email-validator'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import { app } from '../config-firebase';
 
-function Singup(props) {  
+export function Login(props) {
     const auth = getAuth(app);
     const [email, setemail] = useState("")
     const [pass, setpass] = useState("")
@@ -17,14 +17,16 @@ function Singup(props) {
             return 0
         }
         else{
-            createUserWithEmailAndPassword(auth, email, pass)
+            signInWithEmailAndPassword(auth, email, pass)
             .then((userCredential) => {
                 // Signed in 
+                console.log("BERHASIL")
                 const user = userCredential.user;
                 console.log(user)
                 // ...
               })
               .catch((error) => {
+                console.log("GAGAL")
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode)
@@ -39,7 +41,7 @@ function Singup(props) {
             <div className="flex justify-center py-10 flex-grow bg-gradient-to-r from-blue-400 to-blue-800 max-h-screen overflow-y-hidden h-screen">
                 <div className="box-border bg-blue-50 w-96 rounded-3xl py-11 px-12 relative overflow-hidden shadow-2xl">
                     <div className="text-3xl font-bold text-blue-500 mb-5 flex justify-center">{props.Nama}</div>
-                    <div className="flex items-center justify-center text-3xl mb-6 font-bold text-blue-400">Sing Up</div>
+                    <div className="flex items-center justify-center text-3xl mb-6 font-bold text-blue-400">Login</div>
                     <form>
                         <label className ="font-medium text-lg">
                         Email:
@@ -60,5 +62,3 @@ function Singup(props) {
         </>
     )
 }
-
-export default Singup

@@ -9,6 +9,7 @@ import { Users } from "./pages/Users";
 import { About } from "./pages/About";
 import { NotFound } from "./pages/NotFound";
 import SingUp from "./pages/SingUp";
+import { Login } from "./pages/LogIn";
 
 function App(props) {
   return (
@@ -16,6 +17,8 @@ function App(props) {
       <Switch>
         <Route exact path="/">
           <Redirect to="/home"/>
+        </Route>
+        <Route path="/login" component={()=><Login/>}>
         </Route>
         <Route path="/singup" component={()=><SingUp/>}>
         </Route>
