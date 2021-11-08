@@ -4,23 +4,9 @@ import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import { TopbarList } from '../comp/Topbar-list';
-import { useState } from 'react';
-
-function GetImage(props) {
-    let img = []
-    for (let i = 1; i <= props.value; i++) {
-        img.push(<img src={`https://picsum.photos/id/${i}/400/300`}/>)
-    }
-    return (
-        <>
-        {img.slice(0,props.value)}
-        </>
-    )
-}
-
+import { Galery } from './Home/galery';
 
 export function Home(props) {
-    const [monthState, setmonthState] = useState(null)
     let {path} = useRouteMatch();
     const location = useLocation().pathname;
     const history = useHistory();
@@ -51,7 +37,7 @@ export function Home(props) {
                     <div className="absolute inline-block right-14 top-0">200</div>
                     <div className="absolute inline-block right-1 top-0 font-medium">insert</div>
                 </h2>
-                <div className="bg-white border-2 mt-4 ml-7 p-3">
+                <div style={{minHeight: "500px"}} className="bg-white border-2 mt-4 ml-7 p-3">
                     {/*display route mainbar home*/}
                     <Switch>
                         <Route exact path={path}>
@@ -61,16 +47,7 @@ export function Home(props) {
                             <div>Overview</div>
                         </Route>
                         <Route exact path={`${path}/gallery`}>
-                        <div className="flex justify-center">
-                            <div style={monthState === 3 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 3 ? setmonthState(prev => prev = null) : setmonthState(3)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>3 Months</div>
-                            <div style={monthState === 6 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 6 ? setmonthState(prev => prev = null) : setmonthState(6)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>6 Months</div>
-                            <div style={monthState === 9 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 9 ? setmonthState(prev => prev = null) : setmonthState(9)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>9 Months</div>
-                        </div>
-                        <div className="p-7 pt-2">
-                        <div className="container grid grid-cols-3 gap-5 mx-auto mt-2">
-                            <GetImage value={51}/>
-                        </div>
-                        </div>
+                        <Galery value={51}/>
                         </Route>
                         <Route exact path={`${path}/*`}>
                             <Redirect to={"/NotFound404"}/>
