@@ -26,6 +26,8 @@ export function Login(props) {
                 formRef.current[1].value = ""
                 const user = userCredential.user;
                 console.log(user)
+                setemail("")
+                setpass("")
                 // ...
               })
               .catch((error) => {
