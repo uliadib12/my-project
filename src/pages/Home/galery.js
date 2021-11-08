@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
 
 export function Galery(props) {
     const [monthState, setmonthState] = useState(null)
@@ -11,9 +13,9 @@ export function Galery(props) {
     return (
         <>
         <div className="flex justify-center">
-            <div style={monthState === 3 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 3 ? setmonthState(prev => prev = null) : setmonthState(3)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>3 Months</div>
-            <div style={monthState === 6 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 6 ? setmonthState(prev => prev = null) : setmonthState(6)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>6 Months</div>
-            <div style={monthState === 9 ? {backgroundColor: 'rgba(96, 165, 250, 1)',  color: 'rgba(255, 255, 255, 1)'} : {} } onClick={()=>{monthState === 9 ? setmonthState(prev => prev = null) : setmonthState(9)}} className={`select-none mr-5 text-md text-gray-600 font-medium p-1 rounded-md active:bg-blue-500 hover:bg-blue-400 cursor-pointer hover:text-white`}>9 Months</div>
+            <AwesomeButton ripple={true} onPress={()=>{monthState === 3 ? setmonthState(null) : setmonthState(3)}} style={{height: "2rem", marginRight: "1.3rem"}} type={monthState === 3 ? "primary" : "secondary"}>3 Months</AwesomeButton>
+            <AwesomeButton ripple={true} onPress={()=>{monthState === 6 ? setmonthState(null) : setmonthState(6)}} style={{height: "2rem", marginRight: "1.3rem" }} type={monthState === 6 ? "primary" : "secondary"}>6 Months</AwesomeButton>
+            <AwesomeButton ripple={true} onPress={()=>{monthState === 9 ? setmonthState(null) : setmonthState(9)}} style={{height: "2rem", marginRight: "1.3rem" }} type={monthState === 9 ? "primary" : "secondary"}>9 Months</AwesomeButton>
             </div>
             <div className="p-7 pt-2">
                 <div className="container grid grid-cols-3 gap-5 mx-auto mt-2">
