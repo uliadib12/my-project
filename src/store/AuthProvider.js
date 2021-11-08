@@ -1,0 +1,30 @@
+import React, { Children, useEffect } from 'react'
+import {  useDispatch, useSelector } from 'react-redux'
+import { auth } from '../config-firebase'
+import { onAuthStateChanged } from "firebase/auth"
+
+export function Authprovider(props) {
+    const users = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+       const unsubcribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                dispatch({type:"SET_AUTH",payload: user})
+                console.log(user)
+            } else {
+                dispatch({type:"SET_AUTH",payload: null})
+            }
+          });
+
+    return unsubcribe
+    },[])
+    
+    return (
+        <>
+            <div>
+                {props.children}
+            </div>
+        </>
+    )
+}
