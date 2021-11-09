@@ -15,7 +15,7 @@ export function Topbar(props) {
     return (
         <>
             <div className="flex items-center justify-center absolute w-full border-2 bg-white h-14">{props.children}
-            <div onClick={HandlerLogOut} className ="block absolute right-5 cursor-pointer hover:text-blue-500">LogOut</div>
+            <div onClick={HandlerLogOut} className ="block absolute right-5 cursor-pointer hover:text-red-400">LogOut</div>
             </div>
         </>
     )
