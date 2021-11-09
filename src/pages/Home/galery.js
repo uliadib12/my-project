@@ -9,8 +9,12 @@ export function Galery(props) {
     const [photoIndex, setphotoIndex] = useState(0)
     const [isOpen, setisOpen] = useState(false)
     let img = []
+    let imgThumb = []
     for (let i = 1; i <= props.value; i++) {
-        img.push({src:`https://picsum.photos/id/${i}/400/300`,alt:`image${i}`,id:`${i}`})
+        img.push({src:`https://picsum.photos/id/${i}/800/600`,alt:`image${i}`,id:`${i}`})
+    }
+    for (let i = 1; i <= props.value; i++) {
+        imgThumb.push({src:`https://picsum.photos/id/${i}/400/300`,alt:`image${i}`,id:`${i}`})
     }
 
     const HandlerImage=(id)=>{
@@ -37,8 +41,8 @@ export function Galery(props) {
                         onMoveNextRequest={() =>setphotoIndex(photoIndex=>(photoIndex + 1) % img.length)}
                     />
                     )}
-                    {img.map(image=>{
-                        return <LazyLoadImage onClick={()=>HandlerImage((image.id)-1)} effect="blur" src={image.src} alt={image.alt} key={image.id}/>
+                    {imgThumb.map(image=>{
+                        return <LazyLoadImage className="cursor-pointer" onClick={()=>HandlerImage((image.id)-1)} effect="blur" src={image.src} alt={image.alt} key={image.id}/>
                     })}
                 </div>
             </div>
