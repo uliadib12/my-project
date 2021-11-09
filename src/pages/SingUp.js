@@ -55,13 +55,13 @@ function Singup(props) {
                         </label>
                         <label className ="font-medium text-lg">
                         Password:
-                        <input onChange={event => setpass(event.target.value)} type="password" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <input onChange={event => setpass(event.target.value)} required="required" type="password" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                         <div className="relative">
                         </div>
                         </label>
                         <label className ="font-medium text-lg">
                         Confirm Password:
-                        <input onChange={event => setconfrmpass(event.target.value)} type="password" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <input onChange={event => setconfrmpass(event.target.value)} required="required" type="cofirm" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                         <div className="relative">
                         </div>
                         </label>

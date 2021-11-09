@@ -1,28 +1,23 @@
-import React from 'react'
-import {
-  Route,
-  Redirect
-} from 'react-router-dom';
-import { useSelector } from 'react-redux'
-import { isLoaded, isEmpty } from 'react-redux-firebase'
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { useAuth } from '../store/AuthContext';
 
-export function Priviteroute({ children, ...rest }) {
-    const auth = useSelector(state => state.firebase.auth)
-    return (
-      <Route
-        {...rest}
-        render={({ location }) =>
-          isLoaded(auth) && !isEmpty(auth) ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: "/singup",
-                state: { from: location }
-              }}
-            />
-          )
-        }
-      />
-    );
-}
+const PrivateRoute = ({component: Component, ...rest}) => {
+
+  const {currentUser , isLoading} = useAuth()
+  if(isLoading) return <div></div>
+      return (
+        <Route
+          {...rest}
+          render={props =>
+            currentUser ? (
+              <Component {...props} />
+            ) : (
+              <Redirect to={{ pathname: '/login' }} />
+            )}
+        />
+
+      )
+};
+
+export {PrivateRoute}

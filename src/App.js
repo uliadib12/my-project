@@ -10,28 +10,32 @@ import { About } from "./pages/About";
 import { NotFound } from "./pages/NotFound";
 import SingUp from "./pages/SingUp";
 import { Login } from "./pages/LogIn";
+import { AuthProvider } from "./store/AuthContext";
+import { PrivateRoute } from "./comp/PriviteRoute";
 
 function App(props) {
   return (
+  <AuthProvider>
     <Router>
       <Switch>
-        <Route exact path="/">
+        <PrivateRoute exact path="/">
           <Redirect to="/home"/>
-        </Route>
+        </PrivateRoute>
         <Route path="/login" component={()=><Login/>}>
         </Route>
         <Route path="/singup" component={()=><SingUp/>}>
         </Route>
-        <Route path="/home" component={()=><Home/>}>
-        </Route>
-        <Route path="/users" component={()=><Users/>}>
-        </Route>
-        <Route path="/about" component={()=><About/>} >
-        </Route>
+        <PrivateRoute path="/home" component={()=><Home/>}>
+        </PrivateRoute>
+        <PrivateRoute path="/users" component={()=><Users/>}>
+        </PrivateRoute>
+        <PrivateRoute path="/about" component={()=><About/>} >
+        </PrivateRoute>
         <Route path="*" component={()=><NotFound/>}>
         </Route>
       </Switch>
     </Router>
+  </AuthProvider>
   );
 }
 
