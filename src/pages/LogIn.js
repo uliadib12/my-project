@@ -3,9 +3,11 @@ import { useState } from 'react'
 import * as EmailValidator from 'email-validator'
 import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import { app } from '../config-firebase';
+import { useHistory } from 'react-router';
 
 export function Login(props) {
     const auth = getAuth(app);
+    const history = useHistory()
     const [email, setemail] = useState("")
     const [pass, setpass] = useState("")
     const formRef = useRef()
@@ -21,17 +23,16 @@ export function Login(props) {
             signInWithEmailAndPassword(auth, email, pass)
             .then((userCredential) => {
                 // Signed in 
-                console.log("BERHASIL")
                 formRef.current[0].value = ""
                 formRef.current[1].value = ""
                 const user = userCredential.user;
                 console.log(user)
                 setemail("")
                 setpass("")
+                history.push("/")
                 // ...
               })
               .catch((error) => {
-                console.log("GAGAL")
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode)

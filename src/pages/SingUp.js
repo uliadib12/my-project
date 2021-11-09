@@ -3,9 +3,11 @@ import { useState } from 'react'
 import * as EmailValidator from 'email-validator'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from '../config-firebase';
+import { useHistory } from 'react-router';
 
 function Singup(props) {  
     const auth = getAuth(app);
+    const history = useHistory()
     const [email, setemail] = useState("")
     const [pass, setpass] = useState("")
     const [confrmpass, setconfrmpass] = useState("")
@@ -30,6 +32,7 @@ function Singup(props) {
                 setemail("")
                 setpass("")
                 setconfrmpass("")
+                history.push("/")
                 // ...
               })
               .catch((error) => {
