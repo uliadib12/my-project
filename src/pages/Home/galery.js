@@ -1,13 +1,23 @@
 import React, {useState} from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css'
 
 export function Galery(props) {
     const [monthState, setmonthState] = useState(null)
+    const [photoIndex, setphotoIndex] = useState(0)
+    const [isOpen, setisOpen] = useState(false)
     let img = []
     for (let i = 1; i <= props.value; i++) {
         img.push({src:`https://picsum.photos/id/${i}/400/300`,alt:`image${i}`,id:`${i}`})
     }
+
+    const HandlerImage=(id)=>{
+        setisOpen(true)
+        setphotoIndex(id)
+    }
+
     return (
         <>
         <div className="flex justify-center">
@@ -17,8 +27,18 @@ export function Galery(props) {
             </div>
             <div className="p-7 pt-2">
                 <div className="container grid grid-cols-3 gap-5 mx-auto mt-2">
+                    {isOpen && (
+                    <Lightbox
+                        mainSrc={img[photoIndex].src}
+                        nextSrc={img[(photoIndex + 1) % img.length].src}
+                        prevSrc={img[(photoIndex + img.length - 1) % img.length].src}
+                        onCloseRequest={() => setisOpen(false)}
+                        onMovePrevRequest={() =>setphotoIndex(photoIndex=>(photoIndex + img.length - 1) % img.length)}
+                        onMoveNextRequest={() =>setphotoIndex(photoIndex=>(photoIndex + 1) % img.length)}
+                    />
+                    )}
                     {img.map(image=>{
-                        return <LazyLoadImage effect="blur" src={image.src} alt={image.alt} key={image.id}/>
+                        return <LazyLoadImage onClick={()=>HandlerImage((image.id)-1)} effect="blur" src={image.src} alt={image.alt} key={image.id}/>
                     })}
                 </div>
             </div>
