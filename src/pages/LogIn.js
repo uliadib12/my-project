@@ -63,6 +63,7 @@ export function Login(props) {
                             <button onClick={register} className="cursor-pointer w-full bg-blue-600 px-10 py-2 rounded-tr-2xl rounded-bl-2xl font-semibold text-gray-50 block sm:inline-block mb-2 hover:bg-blue-50 hover:text-blue-600 shadow-md">Submit</button>
                         </div>
                     </form>
+                    <div>Don`t Have an Account ? <div onClick={()=>history.push("/singup")} className="inline-block text-blue-600 font-bold cursor-pointer">SingUp</div></div>
                 </div>
             </div>
         </>

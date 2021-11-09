@@ -64,14 +64,15 @@ function Singup(props) {
                         </label>
                         <label className ="font-medium text-lg">
                         Confirm Password:
-                        <input onChange={event => setconfrmpass(event.target.value)} required="required" type="cofirm" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <input onChange={event => setconfrmpass(event.target.value)} required="required" type="password" className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                         <div className="relative">
                         </div>
                         </label>
-                        <div className="mt-28 w-full flex justify-center">
+                        <div className="mt-20 w-full flex justify-center">
                             <button onClick={register} className="cursor-pointer w-full bg-blue-600 px-10 py-2 rounded-tr-2xl rounded-bl-2xl font-semibold text-gray-50 block sm:inline-block mb-2 hover:bg-blue-50 hover:text-blue-600 shadow-md">Submit</button>
                         </div>
                     </form>
+                    <div>Have an Account ? <div onClick={()=>history.push("/login")} className="inline-block text-blue-600 font-bold cursor-pointer">LogIn</div></div>
                 </div>
             </div>
         </>
