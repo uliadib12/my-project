@@ -3,10 +3,13 @@ import {FaCamera} from 'react-icons/fa';
 // import avatar from '../assets/image/avatar-placeholder.png'
 import ProfilePicture from "@dsalvagni/react-profile-picture"
 import "@dsalvagni/react-profile-picture/dist/ProfilePicture.css"
+import useStorage from '../custom-hook/useStorage';
 
 function ProfilePic() {
     const profilePictureRef = useRef()
     const [file, setfile] = useState(null)
+    const {url, progress} = useStorage(file)
+    console.log(progress,url)
 
 const HandleUpload=() => {
     const PP = profilePictureRef.current;
