@@ -8,7 +8,6 @@ export function Topbar(props) {
     const HandlerLogOut = ()=>{
         auth.signOut()
         history.push("/login")
-        console.log("USER LOGOUT")
     }
     
 
