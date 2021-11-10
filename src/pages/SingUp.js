@@ -4,10 +4,13 @@ import * as EmailValidator from 'email-validator'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from '../config-firebase';
 import { useHistory } from 'react-router';
+import Loadingbar from '../assets/svg/Spinner-1s-200px.svg'
 
 function Singup(props) {  
     const auth = getAuth(app);
     const history = useHistory()
+    const [isLoading, setisLoading] = useState(false)
+    const [isError, setisError] = useState({condition: false, massage:""})
     const [email, setemail] = useState("")
     const [pass, setpass] = useState("")
     const [confrmpass, setconfrmpass] = useState("")
@@ -17,7 +20,16 @@ function Singup(props) {
 
     const register = (e) => {
         e.preventDefault()
-        if(!(emailvalidator(email)) || pass !== confrmpass){
+        setisLoading(true)
+        setisError({condition: false})
+        if(!(emailvalidator(email))){
+            setisLoading(false)
+            setisError({condition: true, massage:"Format Email anda Salah"})
+            return 0
+        }
+        if(pass !== confrmpass){
+            setisLoading(false)
+            setisError({condition: true, massage:"Password anda Tidak Sama"})
             return 0
         }
         else{
@@ -32,12 +44,16 @@ function Singup(props) {
                 setemail("")
                 setpass("")
                 setconfrmpass("")
+                setisLoading(false)
+                setisError({condition: false})
                 history.push("/")
                 // ...
               })
               .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                setisLoading(false)
+                setisError({condition: true, massage:"Email atau Password anda salah"})
                 console.log(errorCode)
                 console.log(errorMessage)
                 // ..
@@ -68,7 +84,10 @@ function Singup(props) {
                         <div className="relative">
                         </div>
                         </label>
-                        <div className="mt-20 w-full flex justify-center">
+                        <div className="flex items-center justify-center">
+                            <div className="flex h-20 items-center">{isLoading && <object type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}{isError.condition && <div className="text-red-600">Error {isError.massage}</div>}</div>
+                        </div>
+                        <div className="mt-0 w-full flex justify-center">
                             <button onClick={register} className="cursor-pointer w-full bg-blue-600 px-10 py-2 rounded-tr-2xl rounded-bl-2xl font-semibold text-gray-50 block sm:inline-block mb-2 hover:bg-blue-50 hover:text-blue-600 shadow-md">Submit</button>
                         </div>
                     </form>
