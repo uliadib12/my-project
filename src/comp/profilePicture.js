@@ -15,13 +15,13 @@ const HandleUpload=() => {
     const PP = profilePictureRef.current;
     const imageData = PP.state;
     const files = imageData.file;
+    const getUrl = PP.getImageAsDataUrl()
     if(files){
         setfile(files)
     }
     else{
         setfile(null)
     }
-    console.log(file)
   }
 
     return (
