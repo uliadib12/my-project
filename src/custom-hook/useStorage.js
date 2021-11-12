@@ -22,14 +22,13 @@ export const useStorage = (file) => {
                 .then((urls) => {
                     if(urls){
                         seturl(urls)
-                        console.log("geturl: ",url)
                     }
-                }).catch(error=>{console.log("geturlerr:",error)})
+                })
                 .then(()=>{
                     setDoc(doc(firestore,`${user.uid}`,"avatar"),{url: `${url}`})
                     setprogress(true)
                     history.go(0)
-                }).catch(err=>{console.log(error)})
+                })
                 }).catch(()=>{
                 seterror({state: true, payload:"Error Upload"})
             })

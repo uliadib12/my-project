@@ -35,7 +35,6 @@ export function Users(props) {
     const docRef = doc(firestore, `${user.uid}`, "avatar");
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
-        console.log("getSnap",docSnap.data().url)
         setimgurl(`${docSnap.data().url}`)
         setfirebaseAvatar(true)
       }
