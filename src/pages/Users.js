@@ -7,10 +7,15 @@ import {FaCamera} from 'react-icons/fa';
 import avatar from '../assets/image/avatar-placeholder.png'
 import useStorage from '../custom-hook/useStorage';
 import Loadingbar from '../assets/svg/Spinner-1s-200px.svg'
+import { doc, getDoc } from "firebase/firestore"
+import { firestore } from "../config-firebase"
+import { getAuth } from "firebase/auth";
+
 
 
 export function Users(props) {
   const [file, setfile] = useState(null)
+  const [firebaseAvatar, setfirebaseAvatar] = useState(null)
   const [Error, setError] = useState({state:false, payload:""})
   const hiddenFileInput = useRef()
   const {progress, error} = useStorage(file)
@@ -22,15 +27,25 @@ export function Users(props) {
       setError({state: false, payload:""})
       hiddenFileInput.current.click();
   }
+
+  useEffect(()=>{
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docRef = doc(firestore, `${user.uid}`, "avatar");
+    getDoc(docRef).then((docSnap)=>{
+      if (docSnap.exists()) {
+        console.log("getSnap",docSnap.data().url)
+        setfirebaseAvatar(`${docSnap.data().url}`)
+      }
+    })
+  },[])
   
   useEffect(()=>{
     if(progress){
       setloading(false)
-      console.log("Upload Success")
     }
     if(error){
       setloading(false)
-      console.log("Upload Fail")
     }
 
   },[progress, error])
@@ -69,7 +84,7 @@ export function Users(props) {
                     <div className="gridTamplate gap-1 mt-5 ml-5">
                       <div>
                         <div className="py-8 flex flex-col justify-center">
-                          <img className="w-56 mx-auto rounded-md" src={avatar} alt="avatar"/>
+                          <img className="w-56 mx-auto rounded-md" src={firebaseAvatar} alt="avatar"/>
                           <div className="flex justify-center mt-8">
                             <form>
                               <div onClick={handleClick} className="group hover:border-blue-500 cursor-pointer border-2 border-gray-300 rounded-md py-3 px-14">
