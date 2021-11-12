@@ -1,16 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import {BsTwitter} from 'react-icons/bs';
 import {FaCamera} from 'react-icons/fa';
 import avatar from '../assets/image/avatar-placeholder.png'
+import useStorage from '../custom-hook/useStorage';
+import Loadingbar from '../assets/svg/Spinner-1s-200px.svg'
 
 
 export function Users(props) {
   const [file, setfile] = useState(null)
   const [Error, setError] = useState({state:false, payload:""})
   const hiddenFileInput = useRef()
+  const {progress, error} = useStorage(file)
+  const [loading, setloading] = useState(false)
 
   const types= ["image/png", "image/jpeg"]
 
@@ -19,10 +23,23 @@ export function Users(props) {
       hiddenFileInput.current.click();
   }
   
+  useEffect(()=>{
+    if(progress){
+      setloading(false)
+      console.log("Upload Success")
+    }
+    if(error){
+      setloading(false)
+      console.log("Upload Fail")
+    }
+
+  },[progress, error])
+
   const handleChange = event=>{
     const Inputfile = event.target.files[0]
     if(Inputfile && types.includes(Inputfile.type)){
       setfile(Inputfile)
+      setloading(true)
     }
     else{
       setfile(null)
@@ -60,6 +77,9 @@ export function Users(props) {
                                     Upload
                                   </div>
                                   <input type="file" className="hidden" onChange={handleChange} ref={hiddenFileInput} />
+                              </div>
+                              <div className="flex justify-center mt-2">
+                                {loading && <object type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}
                               </div>
                             </form>
                           </div>
