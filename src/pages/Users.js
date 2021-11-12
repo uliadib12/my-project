@@ -15,7 +15,8 @@ import { getAuth } from "firebase/auth";
 
 export function Users(props) {
   const [file, setfile] = useState(null)
-  const [firebaseAvatar, setfirebaseAvatar] = useState(null)
+  const [firebaseAvatar, setfirebaseAvatar] = useState(false)
+  const [imgurl, setimgurl] = useState("")
   const [Error, setError] = useState({state:false, payload:""})
   const hiddenFileInput = useRef()
   const {progress, error} = useStorage(file)
@@ -35,7 +36,8 @@ export function Users(props) {
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
         console.log("getSnap",docSnap.data().url)
-        setfirebaseAvatar(`${docSnap.data().url}`)
+        setimgurl(`${docSnap.data().url}`)
+        setfirebaseAvatar(true)
       }
     })
   },[])
@@ -84,7 +86,7 @@ export function Users(props) {
                     <div className="gridTamplate gap-1 mt-5 ml-5">
                       <div>
                         <div className="py-8 flex flex-col justify-center">
-                          <img className="w-56 mx-auto rounded-md" src={firebaseAvatar} alt="avatar"/>
+                          <img className={`w-56 mx-auto rounded-md ${firebaseAvatar === true ? "" : "animate-pulse"}`} src={firebaseAvatar === true ? imgurl : avatar} alt="avatar"/>
                           <div className="flex justify-center mt-8">
                             <form>
                               <div onClick={handleClick} className="group hover:border-blue-500 cursor-pointer border-2 border-gray-300 rounded-md py-3 px-14">
