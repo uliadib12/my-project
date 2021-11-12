@@ -71,7 +71,7 @@ export function Login(props) {
                         </div>
                         </label>
                         <div className="flex items-center justify-center">
-                            <div className="flex h-28 items-center">{isLoading && <object type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}{isError.condition && <div className="text-red-600 text-center"><div className="p-2 bg-red-300 border-2 border-red-500 rounded-lg">Error: {isError.massage}</div></div>}</div>
+                            <div className="flex h-28 items-center">{isLoading && <object type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}{isError.condition && <div className="text-red-600">Error {isError.massage}</div>}</div>
                         </div>
                         <div className="mt-0 w-full flex justify-center">
                             <button onClick={login} className="cursor-pointer w-full bg-blue-600 px-10 py-2 rounded-tr-2xl rounded-bl-2xl font-semibold text-gray-50 block sm:inline-block mb-2 hover:bg-blue-50 hover:text-blue-600 shadow-md">Submit</button>

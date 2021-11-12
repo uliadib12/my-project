@@ -3,7 +3,8 @@ import '../body.css';
 import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import {BsTwitter} from 'react-icons/bs';
-import ProfilePic from '../comp/profilePicture';
+import {FaCamera} from 'react-icons/fa';
+import avatar from '../assets/image/avatar-placeholder.png'
 
 
 export function Users(props) {
@@ -30,7 +31,12 @@ export function Users(props) {
                     <div className="mt-5 ml-5 grid grid-cols-3 gap-3">
                       <div>
                         <div className="py-8 flex flex-col justify-center">
-                          <ProfilePic/>
+                          <img className="w-56 mx-auto rounded-full" src={avatar} alt="avatar"/>
+                          <div className="flex justify-center mt-8">
+                            <div className="group hover:border-blue-500 cursor-pointer border-2 border-gray-300 rounded-md py-3 px-14">
+                              <div className="flex items-center text-lg font-semibold group-hover:text-blue-500"><FaCamera className="mr-2"/>Upload</div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div>Test2</div>
