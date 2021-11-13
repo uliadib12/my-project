@@ -25,7 +25,9 @@ export const useStorage = (file) => {
                     }
                 })
                 .then(()=>{
-                    setDoc(doc(firestore,`${user.uid}`,"avatar"),{url: `${url}`})
+                    setDoc(doc(firestore,`${user.uid}`,`avatar`),{url: `${url}`})
+                })
+                .then(()=>{
                     setprogress(true)
                     history.go(0)
                 })

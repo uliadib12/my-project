@@ -84,7 +84,8 @@ export function Users(props) {
                     </div>
                     <div className="gridTamplate gap-1 mt-5 ml-5">
                       <div>
-                        <div className="py-8 flex flex-col justify-center">
+                        <div className="py-8 flex flex-col justify-center relative">
+                                {loading && <object className="absolute top-28 left-32" type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}
                           <img className={`w-56 mx-auto rounded-md ${firebaseAvatar === true ? "" : "animate-pulse"}`} src={firebaseAvatar === true ? imgurl : avatar} alt="avatar"/>
                           <div className="flex justify-center mt-8">
                             <form>
@@ -95,15 +96,26 @@ export function Users(props) {
                                   <input type="file" className="hidden" onChange={handleChange} ref={hiddenFileInput} />
                               </div>
                               <div className="flex justify-center mt-2">
-                                {loading && <object type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}
                               </div>
                             </form>
                           </div>
                             {Error.state && <div className="flex justify-center">{Error.payload}</div>}
                         </div>
                       </div>
-                      <div>Test2</div>
-                      <div>Test3</div>
+                      <div>
+                        <form className="mt-10">
+                        <label>
+                          <div>First Name:</div>
+                          <input className="w-72 shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name"/>
+                        </label>
+                        <label>
+                          <div>Last Name:</div>
+                          <input className="w-72 shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name" />
+                        </label>
+                        <br/>
+                        <input type="submit"/>
+                        </form>
+                      </div>
                     </div>
                   </div>
               </div> 
