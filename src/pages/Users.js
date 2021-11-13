@@ -72,7 +72,7 @@ export function Users(props) {
                   <h2 className="relative font-bold text-lg mt-7 ml-7">
                       User Info
                   </h2>
-                  <div style={{minHeight: "500px"}} className="bg-white border-2 mt-4 ml-7 p-3">
+                  <div style={{minHeight: "500px"}} className="bg-white border-2 mt-4 ml-7 p-3 py-10">
                     <div className="flex min-w-full justify-between items-center">
                       <div className="ml-5 mt-5 font-medium text-2xl">
                         Adib Ulinuha El Majid
@@ -84,8 +84,8 @@ export function Users(props) {
                     </div>
                     <div className="gridTamplate gap-1 mt-5 ml-5">
                       <div>
-                        <div className="py-8 flex flex-col justify-center relative">
-                                {loading && <object className="absolute top-28 left-32" type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}
+                        <div className="py-2 flex flex-col justify-center relative">
+                                {loading && <object className="absolute top-40 left-64" type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}
                           <img className={`w-56 mx-auto rounded-md ${firebaseAvatar === true ? "" : "animate-pulse"}`} src={firebaseAvatar === true ? imgurl : avatar} alt="avatar"/>
                           <div className="flex justify-center mt-8">
                             <form>
@@ -105,11 +105,11 @@ export function Users(props) {
                       <div className="mr-72">
                         <form className="mt-10">
                         <label>
-                          <div>First Name:</div>
+                          <div className="text-gray-700 text-md font-bold">First Name:</div>
                           <input className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name"/>
                         </label>
                         <label>
-                          <div>Last Name:</div>
+                          <div className="text-gray-700 text-md font-bold">Last Name:</div>
                           <input className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name" />
                         </label>
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
