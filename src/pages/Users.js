@@ -11,6 +11,7 @@ import { doc, getDoc } from "firebase/firestore"
 import { firestore } from "../config-firebase"
 import { getAuth } from "firebase/auth";
 import { setDoc } from "firebase/firestore"; 
+import { useHistory } from 'react-router';
 
 
 
@@ -22,6 +23,8 @@ export function Users(props) {
   const hiddenFileInput = useRef()
   const {progress, error} = useStorage(file)
   const [loading, setloading] = useState(false)
+  const [loadingName, setloadingName] = useState(false)
+  const [name, setname] = useState("")
   const [firstName, setfirstName] = useState("")
   const [lastName, setlastName] = useState("")
   const [selected, setselected] = useState("Male")
@@ -31,6 +34,7 @@ export function Users(props) {
   const lastNameRef = useRef()
   const auth = getAuth();
   const user = auth.currentUser;
+  const history = useHistory()
 
   const types= ["image/png", "image/jpeg"]
 
@@ -43,8 +47,22 @@ export function Users(props) {
     const docRef = doc(firestore, `${user.uid}`, "avatar");
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
+        const data = docSnap.data()
+        setname(`${data.firstname} ${data.lastname}`)
+        setloadingName(true)
+      }
+    }).catch(err=>{
+      console.log(err)
+    })
+  },[])
+
+  useEffect(()=>{
+    const docRef = doc(firestore, `${user.uid}`, "avatar");
+    getDoc(docRef).then((docSnap)=>{
+      if (docSnap.exists()) {
         setimgurl(`${docSnap.data().url}`)
         setfirebaseAvatar(true)
+        setloadingName(true)
       }
     }).catch(err=>{
       console.log(err)
@@ -75,9 +93,6 @@ export function Users(props) {
 
   const HandleClickProfile = (e)=>{
     e.preventDefault();
-    console.log(firstName)
-    console.log(lastName)
-    console.log(selected)
     setloadingProfileUpdate(true)
     setDoc(doc(firestore,`${user.uid}`,`avatar`),{
       firstname: `${firstName}`,
@@ -90,6 +105,9 @@ export function Users(props) {
       setloadingProfileUpdate(false)
       FirstName = ""
       LastName = ""
+    })
+    .then(()=>{
+      history.go(0)
     })
   }
 
@@ -127,7 +145,7 @@ export function Users(props) {
                   <div style={{minHeight: "500px"}} className="bg-white border-2 mt-4 ml-7 p-3 py-10">
                     <div className="flex min-w-full justify-between items-center">
                       <div className="ml-5 mt-5 font-medium text-2xl">
-                        Adib Ulinuha El Majid
+                         {loadingName && <div>{name}</div>}
                         <div className="text-sm text-md font-medium text-gray-400">Edit your name,avatar,ect.</div>
                       </div>
                       <div className="group mr-6 border-2 hover:border-blue-400 rounded-md px-4 py-3 cursor-pointer">
