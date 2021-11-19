@@ -25,7 +25,7 @@ export const useStorage = (file) => {
                     }
                 })
                 .then(()=>{
-                    setDoc(doc(firestore,`${user.uid}`,`avatar`),{url: `${url}`})
+                    setDoc(doc(firestore,`${user.uid}`,`avatar`),{url: `${url}`},{ merge: true })
                 })
                 .then(()=>{
                     setprogress(true)

@@ -10,6 +10,7 @@ import Loadingbar from '../assets/svg/Spinner-1s-200px.svg'
 import { doc, getDoc } from "firebase/firestore"
 import { firestore } from "../config-firebase"
 import { getAuth } from "firebase/auth";
+import { setDoc } from "firebase/firestore"; 
 
 
 
@@ -21,6 +22,15 @@ export function Users(props) {
   const hiddenFileInput = useRef()
   const {progress, error} = useStorage(file)
   const [loading, setloading] = useState(false)
+  const [firstName, setfirstName] = useState("")
+  const [lastName, setlastName] = useState("")
+  const [selected, setselected] = useState("Male")
+  const [loadingProfileUpdate, setloadingProfileUpdate] = useState(false)
+  const selectRef = useRef()
+  const firstNameRef = useRef()
+  const lastNameRef = useRef()
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   const types= ["image/png", "image/jpeg"]
 
@@ -30,14 +40,14 @@ export function Users(props) {
   }
 
   useEffect(()=>{
-    const auth = getAuth();
-    const user = auth.currentUser;
     const docRef = doc(firestore, `${user.uid}`, "avatar");
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
         setimgurl(`${docSnap.data().url}`)
         setfirebaseAvatar(true)
       }
+    }).catch(err=>{
+      console.log(err)
     })
   },[])
   
@@ -62,6 +72,48 @@ export function Users(props) {
       setError({state: true, payload:"please select image"})
     }
   }
+
+  const HandleClickProfile = (e)=>{
+    e.preventDefault();
+    console.log(firstName)
+    console.log(lastName)
+    console.log(selected)
+    setloadingProfileUpdate(true)
+    setDoc(doc(firestore,`${user.uid}`,`avatar`),{
+      firstname: `${firstName}`,
+      lastname: `${lastName}`,
+      gender: `${selected}`
+    },{ merge: true })
+    .then(()=>{
+      let FirstName = firstNameRef.current.value
+      let LastName = lastNameRef.current.value
+      setloadingProfileUpdate(false)
+      FirstName = ""
+      LastName = ""
+    })
+  }
+
+
+  const HandleChangeFirstName= ()=>{
+    const FirstName = firstNameRef.current.value
+    setfirstName(FirstName)
+  }
+
+  const HandleChangeLastName= ()=>{
+    const LastName = lastNameRef.current.value
+    setlastName(LastName)
+  }
+
+  const HandleChangeSelect = ()=>{
+    const select = selectRef.current.options.selectedIndex
+    if (select === 0) {
+      setselected("Male")
+    }
+    else{
+      setselected("Female")
+    }
+  }
+
 
     return (
         <>
@@ -106,17 +158,17 @@ export function Users(props) {
                         <form className="mt-10">
                         <label>
                           <div className="text-gray-700 text-md font-bold">First Name:</div>
-                          <input className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name"/>
+                          <input ref={firstNameRef} onChange={HandleChangeFirstName} className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name"/>
                         </label>
                         <label>
                           <div className="text-gray-700 text-md font-bold">Last Name:</div>
-                          <input className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name" />
+                          <input ref={lastNameRef} onChange={HandleChangeLastName} className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name" />
                         </label>
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                           Gender
                         </label>
                         <div class="relative">
-                          <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                          <select onChange={HandleChangeSelect} ref={selectRef} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                             <option>Male</option>
                             <option>Female</option>
                           </select>
@@ -125,7 +177,8 @@ export function Users(props) {
                           </div>
                         </div>
                         <br/>
-                        <button className="bg-gray-300 mt-10 py-2 px-3">Submit</button>
+                        <button onClick={HandleClickProfile} className="hover:border-blue-500 hover:text-blue-500 cursor-pointer border-2 border-gray-300 rounded-md mt-10 py-2 px-3 font-semibold">Submit</button>
+                        {loadingProfileUpdate && <object className="inline-block ml-2" type="image/svg+xml" width={"60px"} data={Loadingbar}>svg-animation</object>}
                         </form>
                       </div>
                     </div>
