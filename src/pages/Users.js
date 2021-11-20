@@ -29,6 +29,8 @@ export function Users(props) {
   const [lastName, setlastName] = useState("")
   const [selected, setselected] = useState("Male")
   const [loadingProfileUpdate, setloadingProfileUpdate] = useState(false)
+  const [firstName2, setfirstName2] = useState("")
+  const [lastName2, setlastName2] = useState("")
   const selectRef = useRef()
   const firstNameRef = useRef()
   const lastNameRef = useRef()
@@ -49,6 +51,8 @@ export function Users(props) {
       if (docSnap.exists()) {
         const data = docSnap.data()
         setname(`${data.firstname} ${data.lastname}`)
+        setfirstName2(data.firstname)
+        setlastName2(data.lastname)
         setloadingName(true)
       }
     }).catch(err=>{
@@ -176,11 +180,11 @@ export function Users(props) {
                         <form className="mt-10">
                         <label>
                           <div className="text-gray-700 text-md font-bold">First Name:</div>
-                          <input ref={firstNameRef} onChange={HandleChangeFirstName} className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name"/>
+                          <input defaultValue={firstName2} ref={firstNameRef} onChange={HandleChangeFirstName} className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name"/>
                         </label>
                         <label>
                           <div className="text-gray-700 text-md font-bold">Last Name:</div>
-                          <input ref={lastNameRef} onChange={HandleChangeLastName} className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name" />
+                          <input defaultValue={lastName2} ref={lastNameRef} onChange={HandleChangeLastName} className="w-full shadow-sm bg-gray-50 border-gray-200 px-2 py-1 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-7" type="text" name="name" />
                         </label>
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                           Gender
