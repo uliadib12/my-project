@@ -53,11 +53,13 @@ export function Users(props) {
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
         const data = docSnap.data()
-        setname(`${data.firstname} ${data.lastname}`)
-        setfirstName2(data.firstname)
-        setlastName2(data.lastname)
-        setgender(data.gender)
-        setloadingName(true)
+        if(data.firstname && data.lastname){
+          setname(`${data.firstname} ${data.lastname}`)
+          setfirstName2(data.firstname)
+          setlastName2(data.lastname)
+          setgender(data.gender)
+          setloadingName(true)
+        }
       }
     }).catch(err=>{
       console.log(err)
