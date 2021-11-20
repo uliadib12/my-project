@@ -3,3 +3,8 @@
     padding-left: 4.4rem;
     padding-right: 2rem; 
 }
+
+.gridTamplate{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
