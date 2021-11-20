@@ -31,6 +31,7 @@ export function Users(props) {
   const [loadingProfileUpdate, setloadingProfileUpdate] = useState(false)
   const [firstName2, setfirstName2] = useState("")
   const [lastName2, setlastName2] = useState("")
+  const [gender, setgender] = useState("")
   const selectRef = useRef()
   const firstNameRef = useRef()
   const lastNameRef = useRef()
@@ -47,12 +48,14 @@ export function Users(props) {
 
   useEffect(()=>{
     const docRef = doc(firestore, `${user.uid}`, "avatar");
+    let select = selectRef.current.options.selectedIndex
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
         const data = docSnap.data()
         setname(`${data.firstname} ${data.lastname}`)
         setfirstName2(data.firstname)
         setlastName2(data.lastname)
+        setgender(data.gender)
         setloadingName(true)
       }
     }).catch(err=>{
@@ -98,10 +101,19 @@ export function Users(props) {
   const HandleClickProfile = (e)=>{
     e.preventDefault();
     setloadingProfileUpdate(true)
+    let FirstNameRef = firstNameRef.current.value
+    let LastNameRef = lastNameRef.current.value
+    let select = selectRef.current.options.selectedIndex
+    if (select === 1) {
+      select = "Male"
+    }
+    else if (select === 2){
+      select = "Female"
+    }
     setDoc(doc(firestore,`${user.uid}`,`avatar`),{
-      firstname: `${firstName}`,
-      lastname: `${lastName}`,
-      gender: `${selected}`
+      firstname: `${FirstNameRef}`,
+      lastname: `${LastNameRef}`,
+      gender: `${select}`
     },{ merge: true })
     .then(()=>{
       let FirstName = firstNameRef.current.value
@@ -191,8 +203,11 @@ export function Users(props) {
                         </label>
                         <div class="relative">
                           <select onChange={HandleChangeSelect} ref={selectRef} class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                            <option>Male</option>
-                            <option>Female</option>
+                          <option value="default" selected disabled hidden>
+                            {gender}
+                          </option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                           </select>
                           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
