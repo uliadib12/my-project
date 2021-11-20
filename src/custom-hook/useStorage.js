@@ -10,28 +10,26 @@ export const useStorage = (file) => {
     const user = auth.currentUser;
     const [progress, setprogress] = useState(false)
     const [error, seterror] = useState({state:false, payload:""})
-    const [url, seturl] = useState("")
+    // const [url, seturl] = useState("")
     const history = useHistory()
-
+    let url = ""
     useEffect(()=>{
         setprogress(false)
         if(file){
             const storageRef = ref(storage, `avatar/${user.uid}/PICT`)
-            uploadBytes(storageRef, file).then((snapshot) => {
-                getDownloadURL(storageRef)
-                .then((urls) => {
-                    if(urls){
-                        seturl(urls)
-                    }
-                })
+            uploadBytes(storageRef, file)
                 .then(()=>{
-                    setDoc(doc(firestore,`${user.uid}`,`avatar`),{url: `${url}`},{ merge: true })
+                    getDownloadURL(storageRef)
+                    .then((urls) => {
+                        url = urls
+                        setDoc(doc(firestore,`${user.uid}`,`avatar`),{url: `${url}`},{ merge: true }).
+                        then(()=>{
+                            setprogress(true)
+                            history.go(0)
+                        })
+                    }).catch(err=>{console.log(err)})
                 })
-                .then(()=>{
-                    setprogress(true)
-                    history.go(0)
-                })
-                }).catch(()=>{
+                .catch(()=>{
                 seterror({state: true, payload:"Error Upload"})
             })
         }
