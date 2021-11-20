@@ -4,6 +4,8 @@ import Sidebar from '../comp/SideBar';
 import { Topbar } from '../comp/Topbar';
 import {BsTwitter} from 'react-icons/bs';
 import {FaCamera} from 'react-icons/fa';
+import {BsGenderFemale} from 'react-icons/bs';
+import {BsGenderMale} from 'react-icons/bs';
 import avatar from '../assets/image/avatar-placeholder.png'
 import useStorage from '../custom-hook/useStorage';
 import Loadingbar from '../assets/svg/Spinner-1s-200px.svg'
@@ -163,7 +165,10 @@ export function Users(props) {
                   <div style={{minHeight: "500px"}} className="bg-white border-2 mt-4 ml-7 p-3 py-10">
                     <div className="flex min-w-full justify-between items-center">
                       <div className="ml-5 mt-5 font-medium text-2xl">
-                         {loadingName && <div>{name}</div>}
+                        <div className="flex items-center">
+                          {loadingName && <div className="mr-2">{name}</div>}
+                          {loadingName && gender === "Male" ? <BsGenderMale color={"blue"} size={"30"}/> : gender === "Female" ? <BsGenderFemale color={"pink"} size={"30"}/> : <div></div>}
+                        </div>
                         <div className="text-sm text-md font-medium text-gray-400">Edit your name,avatar,ect.</div>
                       </div>
                       <div className="group mr-6 border-2 hover:border-blue-400 rounded-md px-4 py-3 cursor-pointer">
