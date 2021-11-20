@@ -48,7 +48,6 @@ export function Users(props) {
 
   useEffect(()=>{
     const docRef = doc(firestore, `${user.uid}`, "avatar");
-    let select = selectRef.current.options.selectedIndex
     getDoc(docRef).then((docSnap)=>{
       if (docSnap.exists()) {
         const data = docSnap.data()
@@ -109,6 +108,9 @@ export function Users(props) {
     }
     else if (select === 2){
       select = "Female"
+    }
+    else if (select === 0){
+      select = gender
     }
     setDoc(doc(firestore,`${user.uid}`,`avatar`),{
       firstname: `${FirstNameRef}`,
